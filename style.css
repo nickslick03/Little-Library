@@ -1,0 +1,89 @@
+@font-face {
+    font-family: RobotoSlab-Thin;
+    src: url(fonts/static/RobotoSlab-Thin.ttf);
+}
+@font-face {
+    font-family: RobotoSlab-Light;
+    src: url(fonts/static/RobotoSlab-Light.ttf);
+}
+*{
+    /*border:solid;*/
+}
+html{
+    height:100%;
+    margin:0;
+    background-color:rgba(255, 255, 255, 0.2);
+    background-image: url("images/booksTitle.jpg");
+    background-blend-mode: color;
+    background-size: cover;
+}
+
+#menu{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    
+}
+
+.item{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    width: fit-content;
+    text-align:center;
+    background-color:rgba(255, 255, 255, 0.5);
+    border:solid 5px white;
+    border-radius:20px;
+    font-family: RobotoSlab-Light;
+    gap:5vw;
+}
+
+
+h1 {
+    font-size: 60px;
+    height: 15%;
+    margin:0;
+    font-family: RobotoSlab-Light;
+    
+}
+
+#addBook, #sortBy, #edit, #delete {
+    font-size:40px;
+}
+
+#addBook, #sortBy {
+    padding-left: 20px;
+}
+
+#edit, #delete {
+    padding-right: 20px;
+}
+
+#book-container {
+    display:flex;
+    justify-content: center;
+    padding-top:10vh;
+    flex-wrap:wrap;
+    gap:30px;
+}
+
+.book {
+    height:300px;
+    width:400px;
+    background-color:rgba(255, 255, 255, 0.5);
+    border:solid 5px white;
+    border-radius:20px;
+    font-family: RobotoSlab-Light;
+    font-size: 30px;
+    text-align: center;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color:rgb(0, 0, 0);
+    font-size: 25px;
+    font-weight: bold;
+    font-family: RobotoSlab-Light;
+}
