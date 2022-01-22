@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Little Library</title>
-</head>   
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<title>Little Library</title>
+</head>
+
 <body>
-    <div id="addBookPopup" class="popup">
-        <h2>Add Book</h2>
-        <div>
-            Title:
-            <input id="bookTitle"></input>
-        </div>
-        <div>
-            Author:
-            <input id="bookAuthor"></input>
-        </div>
-        <div>
-            Genre:
-            <input id="bookGenre"></input>
-        </div>
-        <div>
-            Rating:
-            <input id="bookRating" type="number" min=0 max=5></input>
-        </div>
-    </div>
-    <div id="menu">
-        <h1 class="item">Little Library</h1>
-        <div class="item">
-            <div id="plusButton" class="button">+</div>
-            <div id="sortByButton" class="button"s>↕</div>
-        </div>
-    </div>
-    <div id="book-container">
-        <div class="book">hi</div>
-        <div class="book">hello</div>
-    </div>
-    <div class=footer>
-        <a class=footer href="https://github.com/nickslick03/Little-Library"></a>
-    </div>
-    <script src="script.js" defer></script>
+	<div id="popup">
+		<h2 id="popupTitle"></h2>
+		<div> Title:
+			<input id="inputTitle" maxlength="20"> </div>
+		<div> Author:
+			<input id="inputAuthor" maxlength="20"> </div>
+		<div> Pages:
+			<input id="inputPages" type="number"> </div>
+		<div> Genre:
+			<input id="inputGenre" maxlength="10"> </div>
+        <div> Read Yet?: 
+            <input id="inputReadYet" type="checkbox"></div>
+		<div> Rating:
+            <input id="inputRating" type="number" min=0 max=5> </div>
+		<div>
+			<button id="cancel">cancel</button>
+			<button id="confirm">confirm</button>
+		</div>
+	</div>
+	<div id="menu">
+		<h1 class="item">Little Library</h1>
+		<div class="item">
+			<div id="plusButton" class="button">+</div>
+		</div>
+	</div>
+	<div id="book-container">
+		
+	</div>
+	<div class="footer"> <a class="footer" href="https://github.com/nickslick03/Little-Library">nicklsick03</a> </div>
+	<script src="script.js" defer></script>
 </body>
+
 </html>
