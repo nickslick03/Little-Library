@@ -84,12 +84,10 @@ editButtons.forEach(element => {
 
 function addBook(bookObject) {
 	let index = libraryObjects.length - 1;
-	console.log(index + " - " + bookObject.toString);
 	libraryNodes[index] = {
 		container: document.createElement("div"),
 	}
 	libraryNodes[index].container.classList.add("book");
-	libraryNodes[index].container.id = bookObject.title;
 	for(let key in bookObject) {
 		libraryNodes[index][key] = document.createElement("div");
 		if(key === "title") {
@@ -130,38 +128,55 @@ function addBook(bookObject) {
 			libraryNodes[index][key].innerText = key + " - " + bookObject[key];
 			libraryNodes[index].container.appendChild(libraryNodes[index][key]);
 		}
-		console.log(key + " : " + bookObject[key]);
 	}
+
 	libraryNodes[index].buttons = buttons.cloneNode(true);
-	libraryNodes[index].footer.appendChild(libraryNodes[index].buttons);
-	libraryContainer.appendChild(libraryNodes[index].container);
-	console.log(index);
-	libraryNodes[index].buttons.childNodes[0].addEventListener("click", () => {
-		startEdit(index);
-	});
-	libraryNodes[index].buttons.childNodes[1].addEventListener("click", () => {
-		document.getElementById(bookObject.title).remove();
+	
+	libraryNodes[index].buttons.childNodes[0].addEventListener("click", startEdit(index));
+	
+	libraryNodes[index].buttons.childNodes[1].addEventListener("click", (e) => {
+
+		let editButtons = Array.from(document.getElementsByClassName("editButton"));
+		console.log(editButtons);
+		editButtons.forEach((value, index) => {
+			libraryNodes[index].buttons.childNodes[0].removeEventListener("click", startEdit(index));
+		});
+
+		e.target.parentNode.parentNode.parentNode.remove();
+		
 		libraryObjects.splice(index, 1);
 		libraryNodes.splice(index, 1);
+		
+		editButtons = Array.from(document.getElementsByClassName("editButton"));
+		editButtons.forEach((value, index) => {
+			libraryNodes[index].buttons.childNodes[0].addEventListener("click", startEdit(index));
+		});
 	});
+
+	
+	libraryNodes[index].footer.appendChild(libraryNodes[index].buttons);
+	libraryContainer.appendChild(libraryNodes[index].container);
 }
 let isEdit = false;
 let editIndex = 0;
 
 function startEdit(index) {
-	popup.style.visibility = "visible";
-	popupTitle.innerText = "Edit Book";
-	inputTitle.value = libraryObjects[index].title;
-	inputAuthor.value = libraryObjects[index].author;
-	inputPages.value = libraryObjects[index].pages;
-	inputGenre.value = libraryObjects[index].genre;
-	if(typeof libraryObjects[index].rating === "number") {
-		inputReadYet.checked = true;
-		inputRating.value = libraryObjects[index].rating;
-		inputRating.style.visibility = "visible";
+	return function() {
+		popup.style.visibility = "visible";
+		popupTitle.innerText = "Edit Book";
+		console.log(libraryObjects[index].title);
+		inputTitle.value = libraryObjects[index].title;
+		inputAuthor.value = libraryObjects[index].author;
+		inputPages.value = libraryObjects[index].pages;
+		inputGenre.value = libraryObjects[index].genre;
+		if(typeof libraryObjects[index].rating === "number") {
+			inputReadYet.checked = true;
+			inputRating.value = libraryObjects[index].rating;
+			inputRating.style.visibility = "visible";
+		}
+		isEdit = true;
+		editIndex = index;
 	}
-	isEdit = true;
-	editIndex = index;
 }
 
 function editBook(editIndex) {
@@ -192,7 +207,6 @@ function editBook(editIndex) {
 			libraryNodes[editIndex].rating.innerText = "Not read yet";
 			break;
 	}
-    libraryNodes[editIndex].id = libraryObjects[editIndex].title;
 	isEdit = false;
 }
 libraryObjects[0] = new Book("Atomic Habits", "James Clear", 400, "Self-help", 5);
