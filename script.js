@@ -137,7 +137,6 @@ function addBook(bookObject) {
 	libraryNodes[index].buttons.childNodes[1].addEventListener("click", (e) => {
 
 		let editButtons = Array.from(document.getElementsByClassName("editButton"));
-		console.log(editButtons);
 		editButtons.forEach((value, index) => {
 			libraryNodes[index].buttons.childNodes[0].removeEventListener("click", startEdit(index));
 		});
