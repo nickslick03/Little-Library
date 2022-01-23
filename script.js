@@ -139,6 +139,7 @@ function addBook(bookObject) {
 		let editButtons = Array.from(document.getElementsByClassName("editButton"));
 		editButtons.forEach((value, index) => {
 			libraryNodes[index].buttons.childNodes[0].removeEventListener("click", startEdit(index));
+			console.log("before");
 		});
 
 		e.target.parentNode.parentNode.parentNode.remove();
@@ -149,6 +150,7 @@ function addBook(bookObject) {
 		editButtons = Array.from(document.getElementsByClassName("editButton"));
 		editButtons.forEach((value, index) => {
 			libraryNodes[index].buttons.childNodes[0].addEventListener("click", startEdit(index));
+			console.log("after");
 		});
 	});
 
@@ -163,7 +165,6 @@ function startEdit(index) {
 	return function() {
 		popup.style.visibility = "visible";
 		popupTitle.innerText = "Edit Book";
-		console.log(libraryObjects[index].title);
 		inputTitle.value = libraryObjects[index].title;
 		inputAuthor.value = libraryObjects[index].author;
 		inputPages.value = libraryObjects[index].pages;
