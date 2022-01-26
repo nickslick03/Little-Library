@@ -1,10 +1,13 @@
-function Book(title, author, pages, genre, rating) {
+function Book(title, author, pages, genre, rating, index) {
 	this.container = getContainer();
     this.title = getTitleNode(this.container, title);
 	this.author = getPropteryNode(this.container, "author", author);
 	this.pages = getPropteryNode(this.container, "pages", pages);
 	this.genre = getPropteryNode(this.container, "genre", genre);
-	this.rating = getRatingNode(this.container, rating);
+	this.rating = parseInt(rating);
+    this.ratingNode = getRatingNode(this.container, rating);
+    this.index = index;
+    this.buttons = getButtons(this.container, this);
 }
 
 function getContainer() {
@@ -48,7 +51,30 @@ function getRatingNode(container, rating) {
     }
     footer.appendChild(ratingNode);
     container.appendChild(footer);
-    return rating + 5;
+    return ratingNode;
+}
+
+function getButtons(container, book) {
+    let editButton = document.createElement("span");
+    let deleteButton = document.createElement("span");
+    let buttons = document.createElement("div");
+    buttons.id = "bookButtons";
+    editButton.classList.add("editButton");
+    editButton.classList.add("button");
+    deleteButton.classList.add("deleteButton");
+    deleteButton.classList.add("button");
+    editButton.innerText = "✎";
+    deleteButton.innerText = "⊗";
+    buttons.appendChild(editButton);
+    buttons.appendChild(deleteButton);
+    container.querySelector(".bookFooter").appendChild(buttons);
+    editButton.addEventListener("click", () => {
+       startEdit(book.index);
+    });
+    deleteButton.addEventListener("click", () => {
+        deleteBook(book.index);
+    });
+    return buttons;
 }
 
 const popup = document.getElementById("popup");
@@ -81,6 +107,27 @@ document.getElementById("cancel").addEventListener("click", () => {
 document.getElementById("confirm").addEventListener("click", () => {
 	closePopup(true);
 });
+
+let isEdit = false;
+let editIndex = 0;
+function startEdit(index) {
+    popup.style.visibility = "visible";
+	popupTitle.innerText = "Add Book";
+    popup.style.visibility = "visible";
+    popupTitle.innerText = "Edit Book";
+    inputTitle.value = library[index].title.innerText;
+    inputAuthor.value = library[index].author.innerText.substring(9);
+    inputPages.value = library[index].pages.innerText.substring(8);
+    inputGenre.value = library[index].genre.innerText.substring(8);
+    if(typeof library[index].rating === "number") {
+        inputReadYet.checked = true;
+        inputRating.value = library[index].rating;
+        inputRating.style.visibility = "visible";
+    }
+    isEdit = true;
+    editIndex = index;
+}
+
 function closePopup(isConfrim) {
     let rating;
     inputRating.style.visibility = "hidden";
@@ -91,15 +138,58 @@ function closePopup(isConfrim) {
 		} else {
 			rating = parseInt(inputRating.value);
 		}
-        library[library.length] = new Book(inputTitle.value, inputAuthor.value, inputPages.value, inputGenre.value, rating);
-        bookContainer.appendChild(library[library.length - 1].container);
+        if(isEdit) {
+            editBook(editIndex);
+        } else {
+            library[library.length] = new Book(inputTitle.value, inputAuthor.value, inputPages.value, inputGenre.value, rating, library.length);
+            bookContainer.appendChild(library[library.length - 1].container);
+        }
+    }
+    inputTitle.value = "";
+	inputAuthor.value = "";
+	inputPages.value = 0;
+	inputGenre.value = "";
+	inputRating.value = 0;
+	inputReadYet.checked = false;
+    isEdit = false;
+}
+
+function editBook(index) {
+    library[index].title.innerText = inputTitle.value;
+    library[index].author.innerText = "Author - " + inputAuthor.value;
+    library[index].pages.innerText = "Pages - " + inputPages.value;
+    library[index].genre.innerText = "Genre - " + inputGenre.value;
+    if(inputReadYet.checked === true) {
+        library[index].rating = parseInt(inputRating.value);
+        let stars = "";
+        for(let i = 0; i < 5; i++) {
+            if(inputRating.value > 0) {
+                stars += "★ ";
+            } else {
+                stars += "☆ ";
+            }
+            inputRating.value--;
+        }
+        library[index].ratingNode.innerText = stars;
+    } else {
+        library[index].ratingNode.innerText = "Not Read Yet";
+        library[index].rating = false;
     }
 }
 
+function deleteBook(index) {
+    library[index].container.remove();
+    library.splice(index, 1);
+    let count = 0;
+    library.forEach((book) => {
+        library[count].index = count;
+        count++;
+    });
+}
 const library = [];
 
-library[0] = new Book("Atomic Habits", "James Clear", 400, "Self-help", 5);
-library[1] = new Book("Deep Work", "Cal Newport", 300, "Self-help", 4);
+library[0] = new Book("Atomic Habits", "James Clear", 400, "Self-help", 5, 0);
+library[1] = new Book("Deep Work", "Cal Newport", 300, "Self-help", 4, 1);
 const bookContainer = document.getElementById("book-container");
 bookContainer.appendChild(library[0].container);
 bookContainer.appendChild(library[1].container);
