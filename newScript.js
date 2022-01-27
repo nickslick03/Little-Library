@@ -85,8 +85,8 @@ const inputPages = document.getElementById("inputPages");
 const inputGenre = document.getElementById("inputGenre");
 const inputReadYet = document.getElementById("inputReadYet");
 const inputRating = document.getElementById("inputRating");
-inputPages.value = 0;
-inputRating.value = 0;
+inputPages.value = null;
+inputRating.value = 5;
 
 inputRating.style.visibility = "hidden";
 inputReadYet.addEventListener("click", () => {
@@ -97,23 +97,32 @@ inputReadYet.addEventListener("click", () => {
 	}
 })
 
+function openPopup() {
+    popup.style.visibility = "visible";
+    inputTitle.style.visibility = "visible";
+    inputAuthor.style.visibility = "visible";
+    inputPages.style.visibility = "visible";
+    inputGenre.style.visibility = "visible";
+}
+
 document.getElementById("plusButton").addEventListener("click", () => {
-	popup.style.visibility = "visible";
+	openPopup();
 	popupTitle.innerText = "Add Book";
 });
 document.getElementById("cancel").addEventListener("click", () => {
 	closePopup(false);
 });
 document.getElementById("confirm").addEventListener("click", () => {
-	closePopup(true);
+	if(inputChecker()) {
+        return;
+    }
+    closePopup(true);
 });
 
 let isEdit = false;
 let editIndex = 0;
 function startEdit(index) {
-    popup.style.visibility = "visible";
-	popupTitle.innerText = "Add Book";
-    popup.style.visibility = "visible";
+    openPopup();
     popupTitle.innerText = "Edit Book";
     inputTitle.value = library[index].title.innerText;
     inputAuthor.value = library[index].author.innerText.substring(9);
@@ -126,6 +135,35 @@ function startEdit(index) {
     }
     isEdit = true;
     editIndex = index;
+}
+
+function inputChecker() {
+    let isEmpty = false;
+    if(inputTitle.value === "") {
+        document.getElementById("titleField").style.visibility = "visible";
+        isEmpty = true;
+    } else {
+        document.getElementById("titleField").style.visibility = "hidden";
+    }
+    if(inputAuthor.value === "") {
+        document.getElementById("authorField").style.visibility = "visible";
+        isEmpty = true;
+    } else {
+        document.getElementById("authorField").style.visibility = "hidden";
+    }
+    if(inputPages.value === "") {
+        document.getElementById("pagesField").style.visibility = "visible";
+        isEmpty = true;
+    } else {
+        document.getElementById("pagesField").style.visibility = "hidden";
+    }
+    if(inputGenre.value === "") {
+        document.getElementById("genreField").style.visibility = "visible";
+        isEmpty = true;
+    } else {
+        document.getElementById("genreField").style.visibility = "hidden";
+    }
+    return isEmpty;
 }
 
 function closePopup(isConfrim) {
@@ -147,11 +185,16 @@ function closePopup(isConfrim) {
     }
     inputTitle.value = "";
 	inputAuthor.value = "";
-	inputPages.value = 0;
+	inputPages.value = null;
 	inputGenre.value = "";
-	inputRating.value = 0;
+	inputRating.value = 5;
 	inputReadYet.checked = false;
     isEdit = false;
+    popup.style.visibility = "hidden";
+    inputTitle.style.visibility = "hidden";
+    inputAuthor.style.visibility = "hidden";
+    inputPages.style.visibility = "hidden";
+    inputGenre.style.visibility = "hidden";
 }
 
 function editBook(index) {
@@ -182,10 +225,11 @@ function deleteBook(index) {
     library.splice(index, 1);
     let count = 0;
     library.forEach((book) => {
-        library[count].index = count;
+        book.index = count;
         count++;
     });
 }
+
 const library = [];
 
 library[0] = new Book("Atomic Habits", "James Clear", 400, "Self-help", 5, 0);
