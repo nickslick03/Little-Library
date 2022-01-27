@@ -37,7 +37,7 @@ html{
     border:solid 5px white;
     border-radius:20px;
     font-family: RobotoSlab-Light;
-    gap:4vw;
+    gap:2vw;
 }
 
 
@@ -68,10 +68,10 @@ h1 {
 
 #plusButton {
     font-size:50px;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin:3px;
 }
-
 
 #book-container {
     display:flex;
@@ -109,6 +109,11 @@ input{
     font-family:RobotoSlab-thin;
     font-weight: bold;
 }
+#titleField, #authorField, #pagesField, #genreField {
+    visibility: hidden;
+    color:red;
+}
+
 #cancel, #confirm {
     padding:8px;
     margin-left:10px;

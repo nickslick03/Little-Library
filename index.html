@@ -7,21 +7,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
 	<title>Little Library</title>
+	<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+	<link rel="icon" href="images/favicon.png" type="image/x-icon">
 </head>
 
 <body>
 	<div id="popup">
 		<h2 id="popupTitle"></h2>
-		<div> Title:
-			<input id="inputTitle" maxlength="20"> </div>
-		<div> Author:
-			<input id="inputAuthor" maxlength="20"> </div>
-		<div> Pages:
-			<input id="inputPages" type="number"> </div>
-		<div> Genre:
-			<input id="inputGenre" maxlength="10"> </div>
+		<div id="titleField"> This Field is Required <br> <input id="inputTitle" maxlength="20" placeholder="Title"> </div>
+		<div id="authorField"> This Field is Required <br> <input id="inputAuthor" maxlength="20" placeholder="Author"> </div>
+		<div id="pagesField"> This Field is Required <br> <input id="inputPages" type="number" min=1 placeholder="Pages"> </div>
+		<div id="genreField"> This Field is Required <br> <input id="inputGenre" maxlength="10" placeholder="Genre"> </div>
         <div> Read Yet?: 
-            <input id="inputReadYet" type="checkbox"></div>
+			<input id="inputReadYet" type="checkbox"></div>
 		<div> Rating:
             <input id="inputRating" type="number" min=0 max=5> </div>
 		<div>
@@ -35,9 +33,7 @@
 			<div id="plusButton" class="button">+</div>
 		</div>
 	</div>
-	<div id="book-container">
-		
-	</div>
+	<div id="book-container"> </div>
 	<div class="footer"> <a class="footer" href="https://github.com/nickslick03/Little-Library">nicklsick03</a> </div>
 	<script src="newScript.js" defer></script>
 </body>
