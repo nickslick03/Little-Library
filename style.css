@@ -132,12 +132,13 @@ h1 {
     font-size: 20px;
     padding:10px;
     flex-wrap: wrap;
-    visibility: hidden;
 }
-#sortTitle, #sortAuthor, #sortPages, #sortGenre, #sortRating, #dateAdded, #reverse {
+#sortTitle, #sortAuthor, #sortPages, #sortGenre, #sortRating, #sortRecent, #sortReverse {
     padding:5px;
 }
-
+#sortReverse {
+    font-weight: bold;
+}
 
 #book-container {
     display:flex;

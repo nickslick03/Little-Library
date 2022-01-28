@@ -6,7 +6,8 @@ function Book(title, author, pages, genre, rating, index) {
 	this.genre = getPropteryNode(this.container, "genre", genre);
 	this.rating = parseInt(rating);
     this.ratingNode = getRatingNode(this.container, rating);
-    this.index = index;
+    this.sortingIndex = index;
+    this.recentIndex = library.length;
     this.buttons = getButtons(this.container, this);
 }
 
@@ -35,11 +36,11 @@ function getRatingNode(container, rating) {
     const ratingNode = document.createElement("div");
     const footer = document.createElement("div");
     footer.classList.add("bookFooter");
-    if(rating === false) {
+    if(rating === -1) {
         ratingNode.innerText = "Not read Yet";
         footer.appendChild(ratingNode);
         container.appendChild(footer);
-        return rating;
+        return ratingNode;
     }
     for(let i = 0; i < 5; i++) {
         if(rating > 0) {
@@ -69,10 +70,10 @@ function getButtons(container, book) {
     buttons.appendChild(deleteButton);
     container.querySelector(".bookFooter").appendChild(buttons);
     editButton.addEventListener("click", () => {
-       startEdit(book.index);
+       startEdit(book.sortingIndex);
     });
     deleteButton.addEventListener("click", () => {
-        deleteBook(book.index);
+        deleteBook(book.sortingIndex, book.recentIndex);
     });
     return buttons;
 }
@@ -121,20 +122,20 @@ document.getElementById("confirm").addEventListener("click", () => {
 
 let isEdit = false;
 let editIndex = 0;
-function startEdit(index) {
+function startEdit(sortingIndex) {
     openPopup();
     popupTitle.innerText = "Edit Book";
-    inputTitle.value = library[index].title.innerText;
-    inputAuthor.value = library[index].author.innerText.substring(9);
-    inputPages.value = library[index].pages.innerText.substring(8);
-    inputGenre.value = library[index].genre.innerText.substring(8);
-    if(typeof library[index].rating === "number") {
+    inputTitle.value = library[sortingIndex].title.innerText;
+    inputAuthor.value = library[sortingIndex].author.innerText.substring(9);
+    inputPages.value = library[sortingIndex].pages.innerText.substring(8);
+    inputGenre.value = library[sortingIndex].genre.innerText.substring(8);
+    if(library[sortingIndex].rating > -1) {
         inputReadYet.checked = true;
-        inputRating.value = library[index].rating;
+        inputRating.value = library[sortingIndex].rating;
         inputRating.style.visibility = "visible";
     }
     isEdit = true;
-    editIndex = index;
+    editIndex = sortingIndex;
 }
 
 function inputChecker() {
@@ -172,7 +173,7 @@ function closePopup(isConfrim) {
 	popup.style.visibility = "hidden";
     if(isConfrim) {
 		if(inputReadYet.checked == false) {
-			rating = false;
+			rating = -1;
 		} else {
 			rating = parseInt(inputRating.value);
 		}
@@ -180,7 +181,8 @@ function closePopup(isConfrim) {
             editBook(editIndex);
         } else {
             library[library.length] = new Book(inputTitle.value, inputAuthor.value, inputPages.value, inputGenre.value, rating, library.length);
-            bookContainer.appendChild(library[library.length - 1].container);
+            libraryContainer.appendChild(library[library.length - 1].container);
+            sort(currentSort);
         }
     }
     inputTitle.value = "";
@@ -197,13 +199,13 @@ function closePopup(isConfrim) {
     inputGenre.style.visibility = "hidden";
 }
 
-function editBook(index) {
-    library[index].title.innerText = inputTitle.value;
-    library[index].author.innerText = "Author - " + inputAuthor.value;
-    library[index].pages.innerText = "Pages - " + inputPages.value;
-    library[index].genre.innerText = "Genre - " + inputGenre.value;
+function editBook(sortingIndex) {
+    library[sortingIndex].title.innerText = inputTitle.value;
+    library[sortingIndex].author.innerText = "Author - " + inputAuthor.value;
+    library[sortingIndex].pages.innerText = "Pages - " + inputPages.value;
+    library[sortingIndex].genre.innerText = "Genre - " + inputGenre.value;
     if(inputReadYet.checked === true) {
-        library[index].rating = parseInt(inputRating.value);
+        library[sortingIndex].rating = parseInt(inputRating.value);
         let stars = "";
         for(let i = 0; i < 5; i++) {
             if(inputRating.value > 0) {
@@ -213,27 +215,127 @@ function editBook(index) {
             }
             inputRating.value--;
         }
-        library[index].ratingNode.innerText = stars;
+        library[sortingIndex].ratingNode.innerText = stars;
     } else {
-        library[index].ratingNode.innerText = "Not Read Yet";
-        library[index].rating = false;
+        library[sortingIndex].ratingNode.innerText = "Not Read Yet";
+        library[sortingIndex].rating = -1;
     }
 }
 
-function deleteBook(index) {
-    library[index].container.remove();
-    library.splice(index, 1);
-    let count = 0;
-    library.forEach((book) => {
-        book.index = count;
-        count++;
+function deleteBook(sortingIndex, recentIndex) {
+    library[sortingIndex].container.remove();
+    library.splice(sortingIndex, 1);
+    library.forEach((book, sortInd) => {
+        book.sortingIndex = sortInd;
+        if(book.recentIndex > recentIndex) {
+            book.recentIndex --;
+        }
+        console.log(recentIndex);
     });
 }
 
-const library = [];
+const sortBy = document.getElementById("sortDropdown").cloneNode(true);
+document.getElementById("sortDropdown").remove();
+let sortVisible = false;
+document.getElementById("sortButton").addEventListener("click", () => {
+    if(sortVisible) {
+        sortBy.remove();
+        sortVisible = false;
+    } else {
+        document.getElementById("menu").appendChild(sortBy);
+        sortVisible = true;
+    }
+})
+sortBy.addEventListener("click", (e) => {
+    if(Array.from(sortBy.childNodes).indexOf(e.target) > 1) {
+        sort(e.target.id);
+    }
+});
 
-library[0] = new Book("Atomic Habits", "James Clear", 400, "Self-help", 5, 0);
-library[1] = new Book("Deep Work", "Cal Newport", 300, "Self-help", 4, 1);
-const bookContainer = document.getElementById("book-container");
-bookContainer.appendChild(library[0].container);
-bookContainer.appendChild(library[1].container);
+let currentSort = "sortRecent";
+function sort(sortMethod) {
+    library.forEach((book) => {
+        book.container.remove();
+    });
+    switch (sortMethod) {
+        case "sortTitle":
+            library.sort((a, b) => {
+                if(a.title.innerText < b.title.innerText) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+        break;
+        case "sortAuthor":
+            library.sort((a, b) => {
+                if(a.author.innerText.substring(a.author.innerText.lastIndexOf(" ") + 1) < 
+                b.author.innerText.substring(b.author.innerText.lastIndexOf(" ") + 1)) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+        break;
+        case "sortPages":
+            library.sort((a, b) => {
+                if(parseInt(a.pages.innerText.substring(a.pages.innerText.lastIndexOf(" ") + 1)) < 
+                parseInt(b.pages.innerText.substring(b.pages.innerText.lastIndexOf(" ") + 1))) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+        break;
+        case "sortGenre":
+            library.sort((a, b) => {
+                if(a.genre.innerText.substring(a.genre.innerText.lastIndexOf(" ") + 1) < 
+                b.genre.innerText.substring(b.genre.innerText.lastIndexOf(" ") + 1)) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+        break;
+        case "sortRating":
+            library.sort((a, b) => {
+                if(a.rating < b.rating) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            });
+        break;
+        case "sortRecent":
+            library.sort((a, b) => {
+                if(a.recentIndex < b.recentIndex) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+        break;
+        case "sortReverse":
+            library.reverse();
+        break;
+    }
+    currentSort = sortMethod;
+    library.forEach((book, sortInd) => {
+        libraryContainer.appendChild(book.container);
+        book.sortingIndex = sortInd;
+    });
+}
+
+let library = [];
+
+library[0] = new Book("The Bible", "God", 5000, "Self-help", 5, 0);
+library[1] = new Book("Atomic Habits", "James Clear", 400, "Self-help", 4, 1);
+library[2] = new Book("1984", "George Orwell", 299, "Non-fiction", 3, 2);
+library[3] = new Book("Deep Work", "Cal Newport", 300, "Self-help", 4, 3);
+
+
+const libraryContainer = document.getElementById("book-container");
+libraryContainer.appendChild(library[0].container);
+libraryContainer.appendChild(library[1].container);
+libraryContainer.appendChild(library[2].container);
+libraryContainer.appendChild(library[3].container);
