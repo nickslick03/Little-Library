@@ -104,7 +104,14 @@ function openPopup() {
     inputAuthor.style.visibility = "visible";
     inputPages.style.visibility = "visible";
     inputGenre.style.visibility = "visible";
+    menu.addEventListener("click", stopClick, true);
+    libraryContainer.addEventListener("click", stopClick, true);
 }
+
+let stopClick = function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+};
 
 document.getElementById("plusButton").addEventListener("click", () => {
 	openPopup();
@@ -197,6 +204,8 @@ function closePopup(isConfrim) {
     inputAuthor.style.visibility = "hidden";
     inputPages.style.visibility = "hidden";
     inputGenre.style.visibility = "hidden";
+    menu.removeEventListener("click", stopClick, true);
+    libraryContainer.removeEventListener("click", stopClick, true);
 }
 
 function editBook(sortingIndex) {
@@ -242,7 +251,7 @@ document.getElementById("sortButton").addEventListener("click", () => {
         sortBy.remove();
         sortVisible = false;
     } else {
-        document.getElementById("menu").appendChild(sortBy);
+        menu.appendChild(sortBy);
         sortVisible = true;
     }
 })
@@ -328,12 +337,12 @@ function sort(sortMethod) {
 
 let library = [];
 
-library[0] = new Book("The Bible", "God", 5000, "Self-help", 5, 0);
-library[1] = new Book("Atomic Habits", "James Clear", 400, "Self-help", 4, 1);
-library[2] = new Book("1984", "George Orwell", 299, "Non-fiction", 3, 2);
-library[3] = new Book("Deep Work", "Cal Newport", 300, "Self-help", 4, 3);
+library[0] = new Book("The Bible", "God", 1200, "Non-fiction", 5, 0);
+library[1] = new Book("Atomic Habits", "James Clear", 264, "Self-help", 4, 1)
+library[2] = new Book("1984", "George Orwell", 299, "Non-fiction", 4, 2);
+library[3] = new Book("Deep Work", "Cal Newport", 263, "Self-help", 3, 3);
 
-
+const menu = document.getElementById("menu");
 const libraryContainer = document.getElementById("book-container");
 libraryContainer.appendChild(library[0].container);
 libraryContainer.appendChild(library[1].container);
