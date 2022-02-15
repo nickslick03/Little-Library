@@ -148,29 +148,17 @@ function startEdit(sortingIndex) {
 function inputChecker() {
     let isEmpty = false;
     if(inputTitle.value === "") {
-        document.getElementById("titleField").style.visibility = "visible";
         isEmpty = true;
-    } else {
-        document.getElementById("titleField").style.visibility = "hidden";
     }
     if(inputAuthor.value === "") {
-        document.getElementById("authorField").style.visibility = "visible";
         isEmpty = true;
-    } else {
-        document.getElementById("authorField").style.visibility = "hidden";
     }
     if(inputPages.value === "") {
-        document.getElementById("pagesField").style.visibility = "visible";
         isEmpty = true;
-    } else {
-        document.getElementById("pagesField").style.visibility = "hidden";
     }
     if(inputGenre.value === "") {
-        document.getElementById("genreField").style.visibility = "visible";
         isEmpty = true;
-    } else {
-        document.getElementById("genreField").style.visibility = "hidden";
-    }
+    } 
     return isEmpty;
 }
 
