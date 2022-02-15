@@ -104,14 +104,7 @@ function openPopup() {
     inputAuthor.style.visibility = "visible";
     inputPages.style.visibility = "visible";
     inputGenre.style.visibility = "visible";
-    menu.addEventListener("click", stopClick, true);
-    libraryContainer.addEventListener("click", stopClick, true);
 }
-
-let stopClick = function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-};
 
 document.getElementById("plusButton").addEventListener("click", () => {
 	openPopup();
@@ -148,17 +141,29 @@ function startEdit(sortingIndex) {
 function inputChecker() {
     let isEmpty = false;
     if(inputTitle.value === "") {
+        document.getElementById("titleField").style.visibility = "visible";
         isEmpty = true;
+    } else {
+        document.getElementById("titleField").style.visibility = "hidden";
     }
     if(inputAuthor.value === "") {
+        document.getElementById("authorField").style.visibility = "visible";
         isEmpty = true;
+    } else {
+        document.getElementById("authorField").style.visibility = "hidden";
     }
     if(inputPages.value === "") {
+        document.getElementById("pagesField").style.visibility = "visible";
         isEmpty = true;
+    } else {
+        document.getElementById("pagesField").style.visibility = "hidden";
     }
     if(inputGenre.value === "") {
+        document.getElementById("genreField").style.visibility = "visible";
         isEmpty = true;
-    } 
+    } else {
+        document.getElementById("genreField").style.visibility = "hidden";
+    }
     return isEmpty;
 }
 
@@ -192,8 +197,10 @@ function closePopup(isConfrim) {
     inputAuthor.style.visibility = "hidden";
     inputPages.style.visibility = "hidden";
     inputGenre.style.visibility = "hidden";
-    menu.removeEventListener("click", stopClick, true);
-    libraryContainer.removeEventListener("click", stopClick, true);
+    document.getElementById("titleField").style.visibility = "hidden";
+    document.getElementById("authorField").style.visibility = "hidden";
+    document.getElementById("pagesField").style.visibility = "hidden";
+    document.getElementById("genreField").style.visibility = "hidden";
 }
 
 function editBook(sortingIndex) {
@@ -239,7 +246,7 @@ document.getElementById("sortButton").addEventListener("click", () => {
         sortBy.remove();
         sortVisible = false;
     } else {
-        menu.appendChild(sortBy);
+        document.getElementById("menu").appendChild(sortBy);
         sortVisible = true;
     }
 })
@@ -325,12 +332,12 @@ function sort(sortMethod) {
 
 let library = [];
 
-library[0] = new Book("The Bible", "God", 1200, "Non-fiction", 5, 0);
-library[1] = new Book("Atomic Habits", "James Clear", 264, "Self-help", 4, 1)
-library[2] = new Book("1984", "George Orwell", 299, "Non-fiction", 4, 2);
-library[3] = new Book("Deep Work", "Cal Newport", 263, "Self-help", 3, 3);
+library[0] = new Book("The Bible", "God", 5000, "Self-help", 5, 0);
+library[1] = new Book("Atomic Habits", "James Clear", 400, "Self-help", 4, 1);
+library[2] = new Book("1984", "George Orwell", 299, "Non-fiction", 3, 2);
+library[3] = new Book("Deep Work", "Cal Newport", 300, "Self-help", 4, 3);
 
-const menu = document.getElementById("menu");
+
 const libraryContainer = document.getElementById("book-container");
 libraryContainer.appendChild(library[0].container);
 libraryContainer.appendChild(library[1].container);

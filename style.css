@@ -19,6 +19,13 @@ html{
 }
 
 #popup {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items:center;
+    height:fit-content;
+    width:fit-content;
+    padding:3vw;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -27,21 +34,12 @@ html{
     box-shadow: 0px 0px 1000px 1px rgb(0, 0, 0);
     border-radius:20px;
     font-family: RobotoSlab-Light;
+    gap:5vh;
     visibility: hidden;
 }
 h2{
     font-size: 40px;
     margin:0;
-}
-#bookForm {
-    display:flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items:center;
-    height:fit-content;
-    width:fit-content;
-    padding:3vw;
-    gap:5vh;
 }
 input{
     font-size: 15px;

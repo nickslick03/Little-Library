@@ -13,20 +13,18 @@
 
 <body>
 	<div id="popup">
-		<form id="bookForm">
-			<h2 id="popupTitle"></h2>
-			<div id="titleField"> <input id="inputTitle" maxlength="20" placeholder="Title" required> </div>
-			<div id="authorField"> <input id="inputAuthor" maxlength="20" placeholder="Author" required> </div>
-			<div id="pagesField"> <br> <input id="inputPages" type="number" min=1 placeholder="Pages" required> </div>
-			<div id="genreField"> <br> <input id="inputGenre" maxlength="10" placeholder="Genre" required> </div>
-			<div> Read Yet?: 
-				<input id="inputReadYet" type="checkbox"></div>
-			<div> Rating:
-				<input id="inputRating" type="number" min=0 max=5> </div>
-			<div>
+		<h2 id="popupTitle"></h2>
+		<div id="titleField"> This Field is Required <br> <input id="inputTitle" maxlength="20" placeholder="Title"> </div>
+		<div id="authorField"> This Field is Required <br> <input id="inputAuthor" maxlength="20" placeholder="Author"> </div>
+		<div id="pagesField"> This Field is Required <br> <input id="inputPages" type="number" min=1 placeholder="Pages"> </div>
+		<div id="genreField"> This Field is Required <br> <input id="inputGenre" maxlength="10" placeholder="Genre"> </div>
+        <div> Read Yet?: 
+			<input id="inputReadYet" type="checkbox"></div>
+		<div> Rating:
+            <input id="inputRating" type="number" min=0 max=5> </div>
+		<div>
 			<button id="cancel">cancel</button>
-			<button id="confirm" type="submit">confirm</button>	
-		</form>
+			<button id="confirm">confirm</button>
 		</div>
 	</div>
 	<div id="menu">
