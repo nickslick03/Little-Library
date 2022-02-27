@@ -6,9 +6,7 @@
     font-family: RobotoSlab-Light;
     src: url(fonts/static/RobotoSlab-Light.ttf);
 }
-*{
-    border:sold;
-}
+
 html{
     height:100%;
     margin:0;
@@ -18,40 +16,55 @@ html{
     background-size: cover;
 }
 
+.hidden {
+    visibility: hidden;
+    position: absolute;
+    height: 0;
+    width: 0;
+}
+
+#popupContainer {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 #popup {
+    position: fixed;
     display:flex;
     flex-direction: column;
     justify-content: space-around;
     align-items:center;
-    height:fit-content;
-    width:fit-content;
-    padding:3vw;
-    position: fixed;
+    padding: 20px 50px 20px 50px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
     box-shadow: 0px 0px 1000px 1px rgb(0, 0, 0);
-    border-radius:20px;
+    border-radius: 20px;
     font-family: RobotoSlab-Light;
-    gap:5vh;
-    visibility: hidden;
+    gap:6vh;
 }
-h2{
+
+h2 {
     font-size: 40px;
     margin:0;
 }
-input{
+
+#popup input {
     font-size: 15px;
     font-family:RobotoSlab-thin;
     font-weight: bold;
 }
-#titleField, #authorField, #pagesField, #genreField {
-    visibility: hidden;
-    color:red;
+
+#inputRating {
+    width: 60px;
 }
 
-#cancel, #confirm {
+#popup button {
     padding:8px;
     margin-left:10px;
     margin-right:10px;
@@ -63,13 +76,16 @@ input{
     border-radius: 5px;
     opacity: .8;
 }
-#cancel{
+
+#cancel {
     background-color: rgba(255, 0, 0, 1);
 }
+
 #confirm {
     background-color: rgba(0, 128, 0, 1);
 }
-#cancel:hover, #confirm:hover {
+
+#popup button:hover {
     opacity: 1;
 }
 
@@ -82,7 +98,7 @@ input{
     gap:5vh;
 }
 
-.item{
+.menuItem{
     display:flex;
     justify-content: center;
     align-items:center;
@@ -94,7 +110,6 @@ input{
     font-family: RobotoSlab-Light;
     gap:2vw;
 }
-
 
 h1 {
     font-size: 60px;
@@ -112,35 +127,38 @@ h1 {
     -o-user-select: none;
     user-select: none;
 }
+
 .button:hover {
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 15px;
 }
+
 .button:active {
     background-color: white;
 }
 
-
-#plusButton, #sortButton {
+#addButton, #sortButton {
     font-size:50px;
     padding-left: 10px;
     padding-right: 10px;
     margin:3px;
 }
 
-#sortDropdown{
+#sortDropdown {
     font-size: 20px;
     padding:10px;
     flex-wrap: wrap;
 }
-#sortTitle, #sortAuthor, #sortPages, #sortGenre, #sortRating, #sortRecent, #sortReverse {
+
+#sortDropdown * {
     padding:5px;
 }
-#sortReverse {
+
+#sortDropdown > div:first-child {
     font-weight: bold;
 }
 
-#book-container {
+#bookContainer {
     display:flex;
     justify-content: center;
     flex-wrap:wrap;
@@ -149,6 +167,7 @@ h1 {
 }
 
 .book {
+    position: relative;
     display:flex;
     flex-wrap: nowrap;
     flex-direction: column;
@@ -163,21 +182,19 @@ h1 {
     font-size: 30px;
 }
 
-.center {
+.book > div:first-child {
     align-self: center;
     font-weight: bolder;
 }
 
-.bookFooter {
-    display: flex;
-    justify-content: space-between;
-}
-
-#bookButtons {
+.book > div:last-child {
+    position: absolute;
+    transform: translate(-50%, -50%);
     display: flex;
     gap: 5vh;
     font-size: 40px;
-
+    top: 86%;
+    left: 84%;
 }
 
 .editButton, .deleteButton {

@@ -12,41 +12,44 @@
 </head>
 
 <body>
-	<div id="popup">
-		<h2 id="popupTitle"></h2>
-		<div id="titleField"> This Field is Required <br> <input id="inputTitle" maxlength="20" placeholder="Title"> </div>
-		<div id="authorField"> This Field is Required <br> <input id="inputAuthor" maxlength="20" placeholder="Author"> </div>
-		<div id="pagesField"> This Field is Required <br> <input id="inputPages" type="number" min=1 placeholder="Pages"> </div>
-		<div id="genreField"> This Field is Required <br> <input id="inputGenre" maxlength="10" placeholder="Genre"> </div>
+	<div id="menu">
+		<h1 class="menuItem">Little Library</h1>
+		<div class="menuItem">
+			<div id="addButton" class="button">+</div>
+			<div id="sortButton" class="button">↕</div>
+		</div>
+		<div id="sortDropdown" class="menuItem hidden">
+			<div>Sort by...</div>
+			<div class="button">title</div>
+			<div class="button">author</div>
+			<div class="button">pages</div>
+			<div class="button">genre</div>
+			<div class="button">rating</div>
+			<div class="button">recent</div>
+			<div class="button">reverse</div>
+		</div>
+	</div>
+	<div id="bookContainer"> </div>
+	<div id="popupContainer">
+		<form id="popup">
+		<h2></h2>
+		<input id="inputTitle" maxlength="20" placeholder="Title" required>
+		<input id="inputAuthor" maxlength="20" placeholder="Author" required>
+		<input id="inputPages" type="number" min=1 placeholder="Pages" required>
+		<input id="inputGenre" maxlength="10" placeholder="Genre" required>
         <div> Read Yet?: 
 			<input id="inputReadYet" type="checkbox"></div>
 		<div> Rating:
             <input id="inputRating" type="number" min=0 max=5> </div>
 		<div>
-			<button id="cancel">cancel</button>
-			<button id="confirm">confirm</button>
+			<button id="cancel" type="reset">cancel</button>
+			<button id="confirm" type="submit">confirm</button>
 		</div>
 	</div>
-	<div id="menu">
-		<h1 class="item">Little Library</h1>
-		<div class="item">
-			<div id="plusButton" class="button">+</div>
-			<div id="sortButton" class="button">↕</div>
-		</div>
-		<div id="sortDropdown" class="item">
-			<Strong>Sort By... </Strong>
-			<div id="sortTitle" class="button">title</div>
-			<div id="sortAuthor" class="button">author</div>
-			<div id="sortPages" class="button">pages</div>
-			<div id="sortGenre" class="button">genre</div>
-			<div id="sortRating" class="button">rating</div>
-			<div id="sortRecent" class="button">recent</div>
-			<div id="sortReverse" class="button">reverse</div>
-		</div>
-	</div>
-	<div id="book-container"> </div>
+	
+	</form>
 	<div class="footer"> <a class="footer" href="https://github.com/nickslick03/Little-Library">nicklsick03</a> </div>
-	<script src="newScript.js" defer></script>
+	<script src="finalScript.js" defer></script>
 </body>
 
 </html>
