@@ -10,7 +10,7 @@ class Book {
     static bookList = []
 
     constructor(title, author, pages, genre, rating) {
-        this.#container = Book.#setContainer();
+        this.#container = setBookContainer();
         this.title = title;
         this.author = author;
         this.pages = pages;
@@ -21,21 +21,6 @@ class Book {
         Book.bookList.push(this);
     }
 
-    static #setContainer() {
-        const containerDiv = document.createElement("div");
-        containerDiv.className = "book";
-        for(let i = 0; i <= 4; i++) {
-            const div = document.createElement("div");
-            if(i !== 0 && i !== 4) {
-                const spanOne = document.createElement("span");
-                const spanTwo = document.createElement("span");
-                div.appendChild(spanOne);
-                div.appendChild(spanTwo);
-            }
-            containerDiv.appendChild(div);
-        }
-        return containerDiv;
-    }
     get container() {
         return this.#container;
     }
@@ -127,6 +112,22 @@ class Book {
     get index() {
         return this.#index;
     }
+}
+
+function setBookContainer() {
+    const containerDiv = document.createElement("div");
+    containerDiv.className = "book";
+    for(let i = 0; i <= 4; i++) {
+        const div = document.createElement("div");
+        if(i !== 0 && i !== 4) {
+            const spanOne = document.createElement("span");
+            const spanTwo = document.createElement("span");
+            div.appendChild(spanOne);
+            div.appendChild(spanTwo);
+        }
+        containerDiv.appendChild(div);
+    }
+    return containerDiv;
 }
 
 const popup = (() => {
@@ -276,7 +277,7 @@ const sortBooks = (() => {
             break;
             case "recent":
                 sortFunc = (a, b) => {
-                    return a.index - b.index;
+                    return b.index - a.index;
                 };
             break;
         }
