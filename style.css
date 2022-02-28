@@ -1,3 +1,5 @@
+/*--GLOBAL STYLING--*/
+
 @font-face {
     font-family: RobotoSlab-Thin;
     src: url(fonts/static/RobotoSlab-Thin.ttf);
@@ -7,7 +9,7 @@
     src: url(fonts/static/RobotoSlab-Light.ttf);
 }
 
-html{
+html {
     height:100%;
     margin:0;
     background-color:rgba(255, 255, 255, 0.2);
@@ -22,6 +24,127 @@ html{
     height: 0;
     width: 0;
 }
+
+.button {    
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -webkit-touch-callout : none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+}
+
+.button:active {
+    background-color: white;
+}
+
+/*--MENU STYLING--*/
+
+#menu{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap:5vh;
+}
+
+.menuItem{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    width: fit-content;
+    text-align:center;
+    background-color:rgba(255, 255, 255, 0.5);
+    border:solid 5px white;
+    border-radius:20px;
+    font-family: RobotoSlab-Light;
+    gap:2vw;
+}
+
+h1 {
+    font-size: 60px;
+    height: 15%;
+    margin:0;
+    font-family: RobotoSlab-Light;
+    padding:15px;
+}
+
+#addButton, #sortButton {
+    font-size:50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin:3px;
+}
+
+/*--SORT DROPDOWN STYLING--*/
+
+#sortDropdown {
+    font-size: 20px;
+    padding:10px;
+    flex-wrap: wrap;
+}
+
+#sortDropdown * {
+    padding:5px;
+}
+
+#sortDropdown > div:first-child {
+    font-weight: bold;
+}
+
+/*--BOOK CONTAINER STYLING--*/
+
+#bookContainer {
+    min-height: 300px;
+    padding: 5vh 0 10vh 0;
+    display:flex;
+    justify-content: center;
+    flex-wrap:wrap;
+    gap:5vw;
+}
+
+.book {
+    position: relative;
+    display:flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content:space-evenly;
+    height:300px;
+    width:400px;
+    padding: 1vh;
+    background-color:rgba(255, 255, 255, 0.5);
+    border:solid 5px white;
+    border-radius:20px;
+    font-family: RobotoSlab-Light;
+    font-size: 30px;
+}
+
+.book > div:first-child {
+    align-self: center;
+    font-weight: bolder;
+}
+
+.book > div:last-child {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 5vh;
+    font-size: 40px;
+    top: 86%;
+    left: 84%;
+}
+
+.editButton, .deleteButton {
+    color:black;
+}
+
+/*--BOOK POPUP STYLING--*/
 
 #popupContainer {
     position: fixed;
@@ -89,126 +212,17 @@ h2 {
     opacity: 1;
 }
 
-#menu{
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap:5vh;
-}
+/*--FOOTER STYLING--*/
 
-.menuItem{
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    width: fit-content;
-    text-align:center;
-    background-color:rgba(255, 255, 255, 0.5);
-    border:solid 5px white;
-    border-radius:20px;
-    font-family: RobotoSlab-Light;
-    gap:2vw;
-}
-
-h1 {
-    font-size: 60px;
-    height: 15%;
-    margin:0;
-    font-family: RobotoSlab-Light;
-    padding:15px;
-}
-
-.button {    
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -webkit-touch-callout : none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-}
-
-.button:hover {
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 15px;
-}
-
-.button:active {
-    background-color: white;
-}
-
-#addButton, #sortButton {
-    font-size:50px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin:3px;
-}
-
-#sortDropdown {
-    font-size: 20px;
-    padding:10px;
-    flex-wrap: wrap;
-}
-
-#sortDropdown * {
-    padding:5px;
-}
-
-#sortDropdown > div:first-child {
-    font-weight: bold;
-}
-
-#bookContainer {
-    display:flex;
-    justify-content: center;
-    flex-wrap:wrap;
-    padding-top:5vh;
-    gap:5vw;
-}
-
-.book {
-    position: relative;
-    display:flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content:space-evenly;
-    height:300px;
-    width:400px;
-    padding: 1vh;
-    background-color:rgba(255, 255, 255, 0.5);
-    border:solid 5px white;
-    border-radius:20px;
-    font-family: RobotoSlab-Light;
-    font-size: 30px;
-}
-
-.book > div:first-child {
-    align-self: center;
-    font-weight: bolder;
-}
-
-.book > div:last-child {
-    position: absolute;
-    transform: translate(-50%, -50%);
+body > div:last-of-type {
     display: flex;
-    gap: 5vh;
-    font-size: 40px;
-    top: 86%;
-    left: 84%;
-}
-
-.editButton, .deleteButton {
-    color:black;
+    justify-content: center;
 }
 
 .footer{
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
     text-decoration: none;
     color:rgb(0, 0, 0);
     font-size: 25px;
     font-weight: bold;
     font-family: RobotoSlab-Light;
 }
-

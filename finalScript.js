@@ -160,7 +160,7 @@ const popup = (() => {
             popupTitle.innerText = "Add Book";
             inputList[5].disabled = true;
         }
-    }
+    };
 
     const validate = () => {
         for(let i = 0; i <= 3; i++) {
@@ -169,7 +169,7 @@ const popup = (() => {
             }
         }
         return true;
-    }
+    };
 
     const closePopup = (isConfrim) => {
         popup.style.visibility = "hidden";
@@ -196,7 +196,7 @@ const popup = (() => {
         }
         inputList[4].checked = false;
         currentBook = null;
-    }
+    };
 
     inputList[4].addEventListener("click", () => {
         if(inputList[4].checked) {
@@ -206,7 +206,7 @@ const popup = (() => {
             inputList[5].disabled = true;
             inputList[5].value = "";
         }
-    })
+    });
     popupContainer.addEventListener("click", event => {
         if(event.target === popupContainer) {
             closePopup(false);
@@ -233,14 +233,14 @@ const sortBooks = (() => {
     const sortDropdown = document.getElementById("sortDropdown");
     sortButton.addEventListener("click", () => {
         sortDropdown.classList.toggle("hidden");
-    })
+    });
     let sortMethod = "recent";
     sortDropdown.addEventListener("click", event => {
         if(event.target.className === "button") {
             sortMethod = event.target.innerText;
             sort(sortMethod);
         }
-    })
+    });
     const sort = () => {
         for(book of Book.bookList) {
             document.getElementById("bookContainer").removeChild(book.container);
@@ -256,7 +256,7 @@ const sortBooks = (() => {
                     } else {
                         return 1;
                     }
-                }
+                };
             break;
             case "author":
                 sortFunc = (a, b) => {
@@ -266,31 +266,30 @@ const sortBooks = (() => {
                     } else {
                         return 1;
                     }
-                }
+                };
             break;
             case "pages":
             case "rating":
                 sortFunc = (a, b) => {
                     return b[sortMethod] - a[sortMethod];
-                }
+                };
             break;
             case "recent":
                 sortFunc = (a, b) => {
                     return a.index - b.index;
-                }
+                };
             break;
         }
         sortMethod === "reverse" ? Book.bookList.reverse() : Book.bookList.sort(sortFunc);
         for(book of Book.bookList) {
             document.getElementById("bookContainer").appendChild(book.container);
-        }
+        };
     }
     return {
         sort
-    }
-})()
+    };
+})();
 
-new Book("The Bible", "God", 5000, "Self-help", 5);
 new Book("Atomic Habits", "James Clear", 400, "Self-help", 4);
 new Book("1984", "George Orwell", 299, "Non-fiction", 3);
 new Book("Deep Work", "Cal Newport", 300, "Self-help", 4);
