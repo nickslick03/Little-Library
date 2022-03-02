@@ -1,0 +1,19 @@
+{
+  "name": "little-library",
+  "version": "1.0.0",
+  "description": "A cool way to log books!",
+  "main": "finalScript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickslick03/Little-Library.git"
+  },
+  "author": "Nicholas Epps",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickslick03/Little-Library/issues"
+  },
+  "homepage": "https://github.com/nickslick03/Little-Library#readme"
+}

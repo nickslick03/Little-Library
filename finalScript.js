@@ -1,3 +1,5 @@
+const bookList = [];
+
 class Book {
     #container
     #title
@@ -7,7 +9,6 @@ class Book {
     #rating
     #buttons
     #index
-    static bookList = []
 
     constructor(title, author, pages, genre, rating) {
         this.#container = setBookContainer();
@@ -17,8 +18,8 @@ class Book {
         this.genre = genre;
         this.rating = rating;
         this.#buttons = this.#setButtons();
-        this.#index = Book.bookList.length;
-        Book.bookList.push(this);
+        this.#index = bookList.length;
+        bookList.push(this);
     }
 
     get container() {
@@ -99,12 +100,12 @@ class Book {
         });
         buttonContainer.children[1].addEventListener("click", () => {
             document.getElementById("bookContainer").removeChild(this.container);
-            for(book of Book.bookList) {
+            for(book of bookList) {
                 if(book.#index > this.#index) {
                     book.#index--;
                 }
             }
-            Book.bookList.splice(Book.bookList.indexOf(this), 1);
+            bookList.splice(bookList.indexOf(this), 1);
         });
         this.#container.appendChild(buttonContainer);
     }
@@ -188,7 +189,7 @@ const popup = (() => {
                 }
             } else {
                 new Book(inputList[0].value, inputList[1].value, inputList[2].value, inputList[3].value, inputList[5].value);
-                bookContainer.appendChild(Book.bookList[Book.bookList.length - 1].container);
+                bookContainer.appendChild(bookList[bookList.length - 1].container);
                 sortBooks.sort();
             }
         }
@@ -243,10 +244,9 @@ const sortBooks = (() => {
         }
     });
     const sort = () => {
-        for(book of Book.bookList) {
+        for(book of bookList) {
             document.getElementById("bookContainer").removeChild(book.container);
         }
-        console.log(sortMethod);
         let sortFunc;
         switch(sortMethod) {
             case "title":
@@ -281,8 +281,8 @@ const sortBooks = (() => {
                 };
             break;
         }
-        sortMethod === "reverse" ? Book.bookList.reverse() : Book.bookList.sort(sortFunc);
-        for(book of Book.bookList) {
+        sortMethod === "reverse" ? bookList.reverse() : bookList.sort(sortFunc);
+        for(book of bookList) {
             document.getElementById("bookContainer").appendChild(book.container);
         };
     }
@@ -294,6 +294,6 @@ const sortBooks = (() => {
 new Book("Atomic Habits", "James Clear", 400, "Self-help", 4);
 new Book("1984", "George Orwell", 299, "Non-fiction", 3);
 new Book("Deep Work", "Cal Newport", 300, "Self-help", 4);
-for(book of Book.bookList) {
+for(book of bookList) {
     document.getElementById("bookContainer").appendChild(book.container);
 }
